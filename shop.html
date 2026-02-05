@@ -1,0 +1,1167 @@
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> DAILY NEEDS ENTERPRISE | Shop</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="script.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  
+
+/* Product Card Base */
+.product-card {
+  position: relative;
+  text-align: center;
+  padding: 15px;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+  overflow: hidden;
+}
+
+.product-card:hover {
+  transform: scale(1.03);
+}
+
+
+/* NEW ARRIVAL BADGE */
+.badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #ff3b3b;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  animation: pulse 2s infinite;
+}
+
+/* Pulse Animation for Badge */
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.1); opacity: 0.85; }
+}
+
+/* Product Info Styling */
+.product-card h3 {
+  margin: 10px 0;
+  padding: 5px 0;
+}
+
+.product-card p {
+  font-size: 0.95rem;
+  padding: 0 10px 10px;
+  color: #444;
+}
+
+/* Order Options */
+.order-options {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.quantity-input {
+  width: 60px;
+  padding: 5px;
+  text-align: center;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.add-to-cart {
+  background: #28a745;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 15px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.add-to-cart:hover {
+  background: #218838;
+}
+ 
+
+ 
+.shop-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 30px;
+  padding: 20px 40px;
+}
+
+/* Product grid (cards area) */
+.grid-container {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+/* Cart on the side */
+#cart-section {
+  flex: 0 0 320px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 20px;
+  position: sticky;
+  top: 120px;  /* stays below navbar */
+  max-height: 80vh;
+  overflow-y: auto;
+}
+/* Hide cart box by default */
+#cart-box {
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease-in-out;
+}
+
+ 
+ 
+ 
+
+#cart-box.active {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+/* Floating Cart Button */
+.floating-cart {
+  position: fixed;
+  top: 90px;
+  right: 20px;
+  background: #28a745;
+  color: white;
+  border-radius: 50%;
+  width: 55px;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  cursor: pointer;
+  z-index: 9999;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.floating-cart:hover {
+  background: #218838;
+  transform: scale(1.1);
+}
+
+.cart-count {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: red;
+  color: white;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 50%;
+}
+
+/* === SLIDING CART SIDEBAR === */
+#cart-box {
+  position: fixed;
+  top: 120px;
+  right: -350px;    /* Hidden by default */
+  width: 300px;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  padding: 20px;
+  max-height: calc(100vh - 160px);
+  overflow-y: auto;
+  z-index: 9999;
+
+  transition: right 0.3s ease;
+}
+
+/* When active → slide in */
+#cart-box.active {
+  right: 40px;
+}
+/* Search Suggestions Dropdown */
+#search-suggestions {
+  position: absolute;
+  top: 45px; /* slightly below the input */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  max-width: 400px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  max-height: 250px;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+#search-suggestions div {
+  display: flex;
+  align-items: center;
+  padding: 8px 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background 0.2s;
+}
+
+#search-suggestions div:hover {
+  background: #f5f5f5;
+}
+
+#search-suggestions img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  margin-right: 10px;
+  border-radius: 5px;
+}
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  padding-top: 60px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.8);
+}
+
+.modal-content {
+  margin: auto;
+  display: block;
+  max-width: 90%;
+  max-height: 80vh;
+  border-radius: 10px;
+}
+
+#modal-caption {
+  margin: 15px auto;
+  text-align: center;
+  color: #fff;
+  font-size: 1.2rem;
+}
+
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 35px;
+  color: #fff;
+  font-size: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+ .checkout-btn {
+  width: 90%;
+  padding: 10px;
+  background: #0057ff;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  margin: 10px auto 0 auto;
+  display: block;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.checkout-btn:hover {
+  background: #003fcc;
+}
+
+
+
+
+
+
+
+
+</style>
+
+</head>
+
+
+<body>
+  
+  <!-- Navbar -->
+  <header>
+    <nav class="navbar">
+      <!-- <div class="logo">DAAS PALMFIELD ENT</div> -->
+       <div class="logo"><img src="asset/img/dne.jpeg" alt=""></div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li class="dropdown">
+        <a href="shop.html" class="active">Shop <i class="fas fa-caret-down"></i></a>
+         <ul class="dropdown-menu">
+  <li><a href="shop.html#bodywash">Body Wash & Body Cream  </a></li>
+  <li><a href="shop.html#electronics">Home Appliances / Electronics</a></li>
+  <li><a href="shop.html#food">Food & Groceries</a></li>
+  <li><a href="shop.html#perfumes">Perfumes & Deodorant</a></li>
+  <li><a href="shop.html#cooking">Cooking Essentials</a></li>
+</ul>
+<li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+       
+       <!-- <button class="login-btn" id="loginBtn">Login</button> -->
+        <button class="login-btn" onclick="window.location.href='login.html?redirect=' + window.location.pathname">Login</button>
+         <button class="login-btn" id="logoutBtn" style="display:none;">Logout</button>
+
+
+        <!-- <div class="social-icons"> -->
+           <div class="social-icons">
+             <a href="#"><i class="fab fa-facebook-f"></i></a>
+    <a href="#"><i class="fab fa-instagram"></i></a>
+    <a href="#"><i class="fab fa-x-twitter"></i></a>
+
+        </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+   <!-- Carousel -->
+  <section class="carousel">
+    <div class="carousel-slide active" style="background-image: url(asset/img/d1.jpg );">
+      <div class="overlay"></div>
+      <div class="carousel-text">
+        <h1>Your Trusted Source for Daily Essentials</h1>
+        <p>Quality and affordable products for families and businesses.</p>
+      </div>
+    </div>
+    <div class="carousel-slide" style="background-image: url(asset/img/d2.jpg );">
+      <div class="overlay"></div>
+      <div class="carousel-text">
+        <h1>Affordable Bulk Supply</h1>
+        <p>Reliable sourcing for retailers and organizations.</p>
+      </div>
+    </div>
+    <div class="carousel-slide" style="background-image: url(asset/img/skin.jpeg);">
+      <div class="overlay"></div>
+      <div class="carousel-text">
+        <h1>Improving Wellness</h1>
+        <p>Trusted products for every household we serve.</p>
+      </div>
+    </div>
+     <!-- Arrows -->
+  <button class="carousel-btn prev">&#10094;</button>
+  <button class="carousel-btn next">&#10095;</button>
+  </section>
+  <!-- ===== SEARCH BAR ===== -->
+  <section id="shop-search" style="text-align:center; margin:20px 0; position: relative;">
+  <input type="text" id="search-input" placeholder="Search for products..." style="padding:10px; width:80%; max-width:400px; border-radius:5px; border:1px solid #ccc;">
+  <div id="search-suggestions"></div>
+</section>
+<!-- Product Image Modal -->
+<div id="product-modal" class="modal">
+  <span class="modal-close">&times;</span>
+  <img class="modal-content" id="modal-img">
+  <div id="modal-caption"></div>
+</div>
+
+
+
+ <!-- ========== BODY WASH ========== -->
+<section id="bodywash" class="shop-page">
+  <h3 style="text-align: center;">Body Wash</h3>
+    <div class="shop-container">
+        <div class="products-column">
+  <div class="grid-container">
+    <!-- Visible Items (1–8) -->
+       
+      <div class="product-card"> <span class="badge">New Arrival</span><img src="asset/img/body-wash-1.webp"><h3> SBC Body Wash </h3><p>Refreshing and smooth.</p>
+      <div class="order-options" style="margin:5px 0;">
+      <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+      <span class="unit-price">GHS 30</span></div>
+      <button class="cart-btn" data-name="Body Wash 1" data-price="30">Add to Cart</button></div>
+
+    
+      <div class="product-card"> <span class="badge">New Arrival</span><img src="asset/img/aveeno.jpg"><h3>Aveeno Body Wash</h3><p>Moisturizing formula.</p>
+      <div class="order-options" style="margin:5px 0;">
+      <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+      <span class="unit-price">GHS 35</span></div>
+      <button class="cart-btn" data-name="Body Wash 2" data-price="35">Add to Cart</button></div>
+    
+    
+      <div class="product-card"> <span class="badge">New Arrival</span><img src="asset/img/alo-vera.webp"><h3> Aloe Vera Body Wash</h3><p>Aloe vera soothing wash.</p>
+      <div class="order-options" style="margin:5px 0;">
+      <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+      <span class="unit-price">GHS 28</span></div>
+      <button class="cart-btn" data-name="Body Wash 3" data-price="28">Add to Cart</button></div>
+    
+    
+      <div class="product-card"> <span class="badge">New Arrival</span><img src="asset/img/body-wash2.avif"><h3> Dove Men </h3><p>Luxury fragrance shower gel.</p>
+      <div class="order-options" style="margin:5px 0;">
+      <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+      <span class="unit-price">GHS 40</span>
+      </div><button class="cart-btn" data-name="Body Wash 4" data-price="40">Add to Cart</button></div>
+    
+      <div class="product-card"><img src="asset/img/body-wash-3.webp"><h3> Bella White</h3><p>Citrus freshness.</p>
+      <div class="order-options" style="margin:5px 0;">
+      <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+      <span class="unit-price">GHS 25</span>
+      </div><button class="cart-btn" data-name="Body Wash 5" data-price="25">Add to Cart</button></div>
+    
+      <div class="product-card"><img src="asset/img/olay-shea.jpeg"><h3> Olay</h3><p>Shea butter hydration.</p>
+      <div class="order-options" style="margin:5px 0;">
+      <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+      <span class="unit-price">GHS 32</span>
+      </div><button class="cart-btn" data-name="Body Wash 6" data-price="32">Add to Cart</button></div>
+    
+      <div class="product-card"><img src="asset/img/body-wash-4.webp"><h3>Olay Body Wash</h3><p>Mint energizing wash.</p>
+      <div class="order-options" style="margin:5px 0;">
+      <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+      <span class="unit-price">GHS 45</span>
+      </div><button class="cart-btn" data-name="Body Wash 7" data-price="27">Add to Cart</button></div>
+    
+      <div class="product-card"><img src="asset/img/body-wash-5.jpg"><h3>Pure Peace Body Wash</h3><p>Lavender calming wash.</p>
+      <div class="order-options" style="margin:5px 0;">
+      <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+      <span class="unit-price">GHS 35</span>
+      </div><button class="cart-btn" data-name="Body Wash 8" data-price="29">Add to Cart</button></div>
+
+    <!-- Hidden Items (9–16) -->
+      <div class="product-card hidden"><img src="asset/img/bar-soap-1.webp"><h3>Irish Spring</h3><p>Herbal sensitive skin wash.</p>
+      <div class="order-options" style="margin:5px 0;">
+      <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+      <span class="unit-price">GHS 30</span></div><button class="cart-btn" data-name="Body Wash 9" data-price="34">Add to Cart</button></div>
+   
+      <div class="product-card hidden"><img src="asset/img/bar-soap-2.jpg"><h3>Renate</h3><p>Deep cleansing body wash.</p>
+      <div class="order-options" style="margin:5px 0;">
+      <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+      <span class="unit-price">GHS 15</span></div><button class="cart-btn" data-name="Body Wash 10" data-price="33">Add to Cart</button></div>
+   
+      <div class="product-card hidden"><img src="asset/img/bar-soap-3.jpg"><h3>Dial Complete</h3><p>Cool ocean breeze scent.</p>
+      <div class="order-options" style="margin:5px 0;">
+      <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+      <span class="unit-price">GHS 10</span></div><button class="cart-btn" data-name="Body Wash 11" data-price="31">Add to Cart</button></div>
+    
+      <div class="product-card hidden"><img src="asset/img/bar-soap-4.avif"><h3>Dove</h3><p>Charcoal detox wash.</p>
+      <div class="order-options" style="margin:5px 0;">
+      <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+      <span class="unit-price">GHS 7</span></div><button class="cart-btn" data-name="Body Wash 12" data-price="36">Add to Cart</button></div>
+    
+      <div class="product-card hidden"><img src="asset/img/body-cream1.jpg"><h3>Vaseline</h3><p>Vanilla creamy wash.</p>
+      <div class="order-options" style="margin:5px 0;">
+      <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+      <span class="unit-price">GHS 25</span></div><button class="cart-btn" data-name="Body Wash 13" data-price="38">Add to Cart</button></div>
+    
+      <div class="product-card hidden"><img src="asset/img/body-cream-2.png"><h3>Biocarrot</h3><p>Tea tree antibacterial wash.</p>
+      <div class="order-options" style="margin:5px 0;">
+      <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+      <span class="unit-price">GHS 30</span></div><button class="cart-btn" data-name="Body Wash 14" data-price="37">Add to Cart</button></div>
+    
+      <div class="product-card hidden"><img src="asset/img/body-cream-3.webp"><h3>Plom bodylova</h3><p>Rose scented shower gel.</p>
+      <div class="order-options" style="margin:5px 0;">
+      <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+      <span class="unit-price">GHS 20</span></div><button class="cart-btn" data-name="Body Wash 15" data-price="35">Add to Cart</button></div>
+    
+      <div class="product-card hidden"><img src="asset/img/body-cream4.jpg"><h3> Shea Butter</h3><p>Unscented sensitive wash.</p>
+      <div class="order-options" style="margin:5px 0;">
+      <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+      <span class="unit-price">GHS 30</span></div><button class="cart-btn" data-name="Body Wash 16" data-price="30">Add to Cart</button></div>
+  </div>
+  <div style="text-align:center; margin:20px 0;">
+    <button class="load-more" data-target="bodywash">Load More</button>
+  </div>
+   
+ </section>
+
+
+<!-- ========== PERFUMES ========== -->
+<section id="perfumes" class="shop-page">
+  <h3 style="text-align: center;">Perfumes & Deodorant</h3>
+  <div class="grid-container">
+    <!-- Visible Items (1–8) -->
+    <div class="product-card"><span class="badge">New Arrival</span><img src="asset/img/perfumes-1.webp"><h3>Sovaze</h3><p>Elegant fragrance.</p>
+    <div class="order-options" style="margin:5px 0;">
+    <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+    <span class="unit-price">GHS 45</span>
+    </div><button class="cart-btn" data-name="Perfume 1" data-price="50">Add to Cart</button></div>
+    
+    <div class="product-card"><span class="badge">New Arrival</span><img src="asset/img/perfumes-2.jpg"><h3>External Love</h3><p>Luxury scent.</p>
+    <div class="order-options" style="margin:5px 0;">
+    <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+    <span class="unit-price">GHS 80</span>
+    </div><button class="cart-btn" data-name="Perfume 2" data-price="65">Add to Cart</button></div>
+    
+    <div class="product-card"><img src="asset/img/perfumes-3.webp"><h3>Eau De Rochas</h3><p>Fresh citrus notes.</p>
+    <div class="order-options" style="margin:5px 0;">
+    <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+    <span class="unit-price">GHS  90</span>
+    </div><button class="cart-btn" data-name="Perfume 3" data-price="55">Add to Cart</button></div>
+    
+    <div class="product-card"><span class="badge">New Arrival</span><img src="asset/img/perfume-4.webp"><h3>Mandarine</h3><p>Long-lasting fragrance.</p>
+    <div class="order-options" style="margin:5px 0;">
+    <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+    <span class="unit-price">GHS  60</span>
+    </div><button class="cart-btn" data-name="Perfume 4" data-price="70">Add to Cart</button></div>
+    
+    <div class="product-card"><img src="asset/img/5-perfume.jpg"><h3>Pinky</h3><p>Woody masculine scent.</p>
+    <div class="order-options" style="margin:5px 0;">
+    <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+    <span class="unit-price">GHS  120</span>
+    </div><button class="cart-btn" data-name="Perfume 5" data-price="80">Add to Cart</button></div>
+    
+    <div class="product-card"><img src="asset/img/6-perfume.webp"><h3>Victorias Secret</h3><p>Floral soft scent.</p>
+    <div class="order-options" style="margin:5px 0;">
+    <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+    <span class="unit-price">GHS  70</span>
+    </div><button class="cart-btn" data-name="Perfume 6" data-price="60">Add to Cart</button></div>
+    
+    <div class="product-card"><img src="asset/img/7-perume.avif"><h3> White Perfume</h3><p>Exotic oriental perfume.</p>
+    <div class="order-options" style="margin:5px 0;">
+    <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+    <span class="unit-price">GHS  55</span>
+    </div><button class="cart-btn" data-name="Perfume 7" data-price="75">Add to Cart</button></div>
+    
+    <div class="product-card"><img src="asset/img/8-perfume.jpg"><h3> Blue Blood</h3><p>Everyday casual fragrance.</p>
+    <div class="order-options" style="margin:5px 0;">
+    <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+    <span class="unit-price">GHS  100</span>
+    </div><button class="cart-btn" data-name="Perfume 8" data-price="45">Add to Cart</button></div>
+
+    <!-- Hidden Items (9–16) -->
+    <div class="product-card hidden"><img src="asset/img/deo-1.avif"><h3> Dove</h3><p>Romantic floral notes.</p>
+    <div class="order-options" style="margin:5px 0;">
+    <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+    <span class="unit-price">GHS  40</span>
+    </div><button class="cart-btn" data-name="Perfume 9" data-price="66">Add to Cart</button></div>
+    
+    <div class="product-card hidden"><img src="asset/img/deo-2.webp"><h3> Suave</h3><p>Fresh aqua spray.</p>
+    <div class="order-options" style="margin:5px 0;">
+    <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+    <span class="unit-price">GHS 25</span>
+    </div><button class="cart-btn" data-name="Perfume 10" data-price="72">Add to Cart</button></div>
+    
+    <div class="product-card hidden"><img src="asset/img/deo-3.avif"><h3> Sure</h3><p>Bold evening fragrance.</p>
+    <div class="order-options" style="margin:5px 0;">
+    <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+    <span class="unit-price">GHS 30</span>
+    </div><button class="cart-btn" data-name="Perfume 11" data-price="90">Add to Cart</button></div>
+   
+    <div class="product-card hidden"><img src="asset/img/deo-4.avif"><h3>Dove Men + Care</h3><p>Classic unisex scent.</p>
+    <div class="order-options" style="margin:5px 0;">
+    <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+    <span class="unit-price">GHS 20</span>
+    </div><button class="cart-btn" data-name="Perfume 12" data-price="58">Add to Cart</button></div>
+    
+    <div class="product-card hidden"><img src="asset/img/deo-5.jpg"><h3>Men Degree</h3><p>Vanilla warm base.</p>
+    <div class="order-options" style="margin:5px 0;">
+    <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+    <span class="unit-price">GHS 35</span>
+    </div><button class="cart-btn" data-name="Perfume 13" data-price="62">Add to Cart</button></div>
+    
+    <div class="product-card hidden"><img src="asset/img/deo-6.jpg"><h3>Secret</h3><p>Sweet fruity mix.</p>
+    <div class="order-options" style="margin:5px 0;">
+    <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+    <span class="unit-price">GHS 25</span>
+    </div><button class="cart-btn" data-name="Perfume 14" data-price="54">Add to Cart</button></div>
+    
+    <div class="product-card hidden"><img src="asset/img/deo-7.webp"><h3>Nivea Men</h3><p>Luxury oud fragrance.</p>
+    <div class="order-options" style="margin:5px 0;">
+    <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+    <span class="unit-price">GHS 40</span>
+    </div><button class="cart-btn" data-name="Perfume 15" data-price="100">Add to Cart</button></div>
+    
+    <div class="product-card hidden"><img src="asset/img/deo-8.webp"><h3> Aloe Vera Crystal Deodorant</h3><p>Soft lavender notes.</p>
+    <div class="order-options" style="margin:5px 0;">
+    <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+    <span class="unit-price">GHS  30</span>
+    </div><button class="cart-btn" data-name="Perfume 16" data-price="48">Add to Cart</button></div>
+    </div>
+  <div style="text-align:center; margin:20px 0;">
+    <button class="load-more" data-target="perfumes">Load More</button>
+  </div>
+</section>
+
+<!-- Repeat same structure for ELECTRONICS, FOOD, and COOKING ESSENTIALS with 16 products each -->
+
+
+  <!-- ========== ELECTRONICS ========== -->
+<section id="electronics" class="shop-page">
+  <h3 style="text-align: center;">Phones & Electronics</h3>
+  <div class="grid-container">
+    <!-- Visible Items (1–8) -->
+    <div class="product-card"><span class="badge">New Arrival</span><img src="asset/img/samsung-galaxy-s10.webp"><h3>Samsung</h3><p>Latest Android phone.</p>
+        <div class="order-options" style="margin:5px 0;">
+    <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+    <span class="unit-price">GHS 1500</span>
+  </div><button class="cart-btn" data-name="Smartphone 1" data-price="1200">Add to Cart</button></div>
+    <div class="product-card"><span class="badge">New Arrival</span><img src="asset/img/phone-2.avif"><h3>Samsung A25</h3><p>High-speed performance.</p>
+        <div class="order-options" style="margin:5px 0;">
+    <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+    <span class="unit-price">GHS 2000</span>
+  </div><button class="cart-btn" data-name="Smartphone 2" data-price="1400">Add to Cart</button></div>
+    <div class="product-card"><img src="asset/img/hp2.webp"><h3>HP</h3><p>Powerful business laptop.</p>
+        <div class="order-options" style="margin:5px 0;">
+    <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+    <span class="unit-price">GHS 4500</span>
+  </div><button class="cart-btn" data-name="Laptop 1" data-price="3500">Add to Cart</button></div>
+    <div class="product-card"><img src="asset/img/dell.avif"><h3>DELL</h3><p>Lightweight ultrabook.</p>
+        <div class="order-options" style="margin:5px 0;">
+    <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+    <span class="unit-price">GHS 3500</span>
+  </div><button class="cart-btn" data-name="Laptop 2" data-price="2800">Add to Cart</button></div>
+    <div class="product-card"><img src="asset/img/hisense-tv.webp"><h3>Hisense TV</h3><p>40-inch 4K display.</p>
+        <div class="order-options" style="margin:5px 0;">
+    <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+    <span class="unit-price">GHS 3000</span>
+  </div><button class="cart-btn" data-name="Smart TV" data-price="2200">Add to Cart</button></div>
+    <div class="product-card"><img src="asset/img/headphone-2.webp"><h3>Headphones</h3><p>Noise-cancelling headphones.</p>
+        <div class="order-options" style="margin:5px 0;">
+    <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+    <span class="unit-price">GHS 120</span>
+  </div><button class="cart-btn" data-name="Headphones" data-price="300">Add to Cart</button></div>
+    <div class="product-card"><img src="asset/img/bluttoth-speaker.jpg"><h3>Bluetooth Speaker</h3><p>Portable speaker with deep bass.</p>
+        <div class="order-options" style="margin:5px 0;">
+    <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+    <span class="unit-price">GHS 150</span>
+  </div><button class="cart-btn" data-name="Bluetooth Speaker" data-price="250">Add to Cart</button></div>
+    <div class="product-card"><span class="badge">New Arrival</span><img src="asset/img/single-fridge.avif"><h3>Refrigerator</h3><p>Energy-efficient fridge.</p>
+        <div class="order-options" style="margin:5px 0;">
+    <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+    <span class="unit-price">GHS 2500</span>
+  </div><button class="cart-btn" data-name="Refrigerator" data-price="1800">Add to Cart</button></div>
+
+    <!-- Hidden Items (9–16) -->
+    <div class="product-card hidden"><span class="badge">New Arrival</span><img src="asset/img/iphone-17-promax.webp"><h3>Iphone 17 Pro-Max</h3><p>Budget-friendly model.</p>
+        <div class="order-options" style="margin:5px 0;">
+    <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+    <span class="unit-price">GHS 15,821</span>
+  </div><button class="cart-btn" data-name="Smartphone 3" data-price="900">Add to Cart</button></div>
+    <div class="product-card hidden"><img src="asset/img/lenovo.jpg"><h3>Lenovo</h3><p>Gaming powerhouse.</p>
+        <div class="order-options" style="margin:5px 0;">
+    <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+    <span class="unit-price">GHS 5,600</span>
+  </div><button class="cart-btn" data-name="Laptop 3" data-price="4200">Add to Cart</button></div>
+    <div class="product-card hidden"><img src="asset/img/smart-tv.jpg"><h3>Ultra HD TV 65"</h3><p>Ultra HD cinematic display.</p>
+        <div class="order-options" style="margin:5px 0;">
+    <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+    <span class="unit-price">GHS 4000</span>
+  </div><button class="cart-btn" data-name="Smart TV 65" data-price="3500">Add to Cart</button></div>
+    <div class="product-card hidden"> <span class="badge">New Arrival</span><img src="asset/img/headphone.jpg"><h3>Wireless Earbuds</h3><p>True wireless with case.</p>
+        <div class="order-options" style="margin:5px 0;">
+    <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+    <span class="unit-price">GHS 250</span>
+  </div><button class="cart-btn" data-name="Wireless Earbuds" data-price="150">Add to Cart</button></div>
+    <div class="product-card hidden"><img src="asset/img/home-theater.jpg"><h3>Home Theater</h3><p>5.1 surround sound system.</p>
+        <div class="order-options" style="margin:5px 0;">
+    <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+    <span class="unit-price">GHS 2500</span>
+  </div><button class="cart-btn" data-name="Home Theater" data-price="1100">Add to Cart</button></div>
+    <div class="product-card hidden"><img src="asset/img/refrigerator.webp"><h3>Double Door Fridge</h3><p>Spacious family fridge.</p>
+        <div class="order-options" style="margin:5px 0;">
+    <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+    <span class="unit-price">GHS 3000</span>
+  </div><button class="cart-btn" data-name="Double Door Fridge" data-price="2500">Add to Cart</button></div>
+    <div class="product-card hidden"><img src="asset/img/washing-machine.avif"><h3>Washing Machine</h3><p>Automatic front load washer.</p>
+        <div class="order-options" style="margin:5px 0;">
+    <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+    <span class="unit-price">GHS 5,500</span>
+  </div><button class="cart-btn" data-name="Washing Machine" data-price="1700">Add to Cart</button></div>
+    <div class="product-card hidden"><img src="asset/img/microwave.webp"><h3>Microwave Oven</h3><p>Compact and powerful microwave.</p>
+        <div class="order-options" style="margin:5px 0;">
+    <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+    <span class="unit-price">GHS 300</span>
+  </div><button class="cart-btn" data-name="Microwave Oven" data-price="600">Add to Cart</button></div>
+  </div>
+  <div style="text-align:center; margin:20px 0;">
+    <button class="load-more" data-target="electronics">Load More</button>
+  </div>
+</section>
+
+
+<!-- ========== FOOD ========== -->
+<section id="food" class="shop-page">
+  <h3 style="text-align: center;">Food & Groceries</h3>
+  <div class="grid-container">
+    <!-- Visible Items (1–8) -->
+    <div class="product-card"><span class="badge">New Arrival</span><img src="asset/img/royal-aroma.jpg"><h3>Royal Aroma</h3><p>Premium quality rice.</p>
+      <div class="order-options" style="margin:5px 0;">
+        <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+        <span class="unit-price">GHS 70</span></div><button class="cart-btn" data-name="Rice" data-price="200">Add to Cart</button></div>
+    <div class="product-card"><span class="badge">New Arrival</span><img src="asset/img/cooking-oil.jpg"><h3>Cooking Oil</h3><p>Healthy family cooking oil.</p>
+      <div class="order-options" style="margin:5px 0;">
+        <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+        <span class="unit-price">GHS 120</span></div><button class="cart-btn" data-name="Cooking Oil" data-price="150">Add to Cart</button></div>
+    <div class="product-card"><img src="asset/img/sugar.webp"><h3>Sugar</h3><p>Refined white sugar.</p>
+      <div class="order-options" style="margin:5px 0;">
+        <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+        <span class="unit-price">GHS 15</span></div><button class="cart-btn" data-name="Sugar" data-price="90">Add to Cart</button></div>
+    <div class="product-card"><img src="asset/img/salt.jpg"><h3>Salt</h3><p>Fine table salt.</p>
+      <div class="order-options" style="margin:5px 0;">
+        <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+        <span class="unit-price">GHS 30</span></div><button class="cart-btn" data-name="Salt" data-price="50">Add to Cart</button></div>
+    <div class="product-card"><img src="asset/img/milk.jpg"><h3>Milk</h3><p>Rich and creamy milk.</p>
+      <div class="order-options" style="margin:5px 0;">
+        <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+        <span class="unit-price">GHS 25</span></div><button class="cart-btn" data-name="Milk" data-price="120">Add to Cart</button></div>
+    <div class="product-card"><img src="asset/img/indomie-2.webp"><h3>Instant Noodles</h3><p>Quick and tasty meal.</p>
+      <div class="order-options" style="margin:5px 0;">
+        <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+        <span class="unit-price">GHS 20</span></div><button class="cart-btn" data-name="Instant Noodles" data-price="60">Add to Cart</button></div>
+    <div class="product-card"><img src="asset/img/Rosemary.jpg"><h3>Spices</h3><p>Flavors from around the world.</p>
+      <div class="order-options" style="margin:5px 0;">
+        <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+        <span class="unit-price">GHS 30</span></div><button class="cart-btn" data-name="Spices" data-price="80">Add to Cart</button></div>
+    <div class="product-card"><span class="badge">New Arrival</span><img src="asset/img/beans.webp"><h3>Beans</h3><p>Protein-rich beans.</p>
+      <div class="order-options" style="margin:5px 0;">
+        <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+        <span class="unit-price">GHS 30</span></div><button class="cart-btn" data-name="Beans" data-price="100">Add to Cart</button></div>
+
+    <!-- Hidden Items (9–16) -->
+    <div class="product-card hidden"><img src="asset/img/cerelac.jpg"><h3>Maize</h3><p>Yellow corn grain.</p>
+      <div class="order-options" style="margin:5px 0;">
+        <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+        <span class="unit-price">GHS 30</span></div><button class="cart-btn" data-name="Maize" data-price="85">Add to Cart</button></div>
+    <div class="product-card hidden"><img src="asset/img/shito.jpg"><h3>Shito Sauce</h3><p>Spicy Ghanaian sauce.</p>
+      <div class="order-options" style="margin:5px 0;">
+        <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+        <span class="unit-price">GHS 30</span></div><button class="cart-btn" data-name="Shito Sauce" data-price="70">Add to Cart</button></div>
+    <div class="product-card hidden"><img src="asset/img/sardine.jpg"><h3>Sardine</h3><p>Rich in omega-3.</p>
+      <div class="order-options" style="margin:5px 0;">
+        <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+        <span class="unit-price">GHS 30</span></div><button class="cart-btn" data-name="Sardine" data-price="95">Add to Cart</button></div>
+    <div class="product-card hidden"><img src="asset/img/Egg-Crate.jpg"><h3>Eggs</h3><p>Fresh farm eggs.</p>
+      <div class="order-options" style="margin:5px 0;">
+        <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+        <span class="unit-price">GHS 30</span></div><button class="cart-btn" data-name="Eggs" data-price="60">Add to Cart</button></div>
+    <div class="product-card hidden"><img src="asset/img/ground-nut-paste.jpg"><h3>Groundnut</h3><p>Crunchy peanuts.</p>
+      <div class="order-options" style="margin:5px 0;">
+        <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+        <span class="unit-price">GHS 30</span></div><button class="cart-btn" data-name="Groundnut" data-price="75">Add to Cart</button></div>
+    <div class="product-card hidden"><img src="asset/img/milo.jpg"><h3>Milo</h3><p>Energy chocolate drink.</p>
+      <div class="order-options" style="margin:5px 0;">
+        <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+        <span class="unit-price">GHS 30</span></div><button class="cart-btn" data-name="Milo" data-price="110">Add to Cart</button></div>
+    <div class="product-card hidden"><img src="asset/img/orange-juice.jpg"><h3>Juice</h3><p>Natural fruit juice.</p>
+      <div class="order-options" style="margin:5px 0;">
+        <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+        <span class="unit-price">GHS 30</span></div><button class="cart-btn" data-name="Juice" data-price="130">Add to Cart</button></div>
+    <div class="product-card hidden"><img src="asset/img/voltic.jpg"><h3>Bottled Water</h3><p>Pure clean water.</p>
+      <div class="order-options" style="margin:5px 0;">
+        <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+        <span class="unit-price">GHS 30</span></div><button class="cart-btn" data-name="Bottled Water" data-price="40">Add to Cart</button></div>
+  </div>
+  <div style="text-align:center; margin:20px 0;">
+    <button class="load-more" data-target="food">Load More</button>
+  </div>
+</section>
+
+
+<!-- ========== COOKING ESSENTIALS ========== -->
+<section id="cooking" class="shop-page">
+  <h3 style="text-align: center;">Cooking Essentials</h3>
+  <div class="grid-container">
+    <!-- Visible Items (1–8) -->
+    <div class="product-card"><span class="badge">New Arrival</span><img src="asset/img/flour.avif"><h3>flour</h3><p>Fine baking flour.</p>
+      <div class="order-options" style="margin:5px 0;">
+        <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+        <span class="unit-price">GHS  45</span></div><button class="cart-btn" data-name="Flour" data-price="90">Add to Cart</button></div>
+    <div class="product-card"><img src="asset/img/vegetable-oil.avif"><h3>Vegetable Oil</h3><p>Cooking essential.</p>
+      <div class="order-options" style="margin:5px 0;">
+        <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+        <span class="unit-price">GHS  60</span></div><button class="cart-btn" data-name="Vegetable Oil" data-price="150">Add to Cart</button></div>
+    <div class="product-card"><span class="badge">New Arrival</span><img src="asset/img/salt.jpg"><h3>Salt</h3><p>Daily cooking salt.</p>
+      <div class="order-options" style="margin:5px 0;">
+        <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+        <span class="unit-price">GHS  15</span></div><button class="cart-btn" data-name="Salt" data-price="50">Add to Cart</button></div>
+    <div class="product-card"><img src="asset/img/pepper.avif"><h3>Pepper</h3><p>Hot chili peppers.</p>
+      <div class="order-options" style="margin:5px 0;">
+        <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+        <span class="unit-price">GHS  20</span></div><button class="cart-btn" data-name="Pepper" data-price="60">Add to Cart</button></div>
+    <div class="product-card"><span class="badge">New Arrival</span><img src="asset/img/onion.jpg"><h3>Onions</h3><p>Fresh onions for cooking.</p>
+      <div class="order-options" style="margin:5px 0;">
+        <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+        <span class="unit-price">GHS  20</span></div><button class="cart-btn" data-name="Onions" data-price="55">Add to Cart</button></div>
+    <div class="product-card"><img src="asset/img/tomatoes.jpg"><h3>Tomatoes</h3><p>Ripe red tomatoes.</p>
+      <div class="order-options" style="margin:5px 0;">
+        <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+        <span class="unit-price">GHS  15</span></div><button class="cart-btn" data-name="Tomatoes" data-price="70">Add to Cart</button></div>
+    <div class="product-card"><img src="asset/img/garlic.jpg"><h3>Garlic</h3><p>Strong and flavorful garlic.</p>
+      <div class="order-options" style="margin:5px 0;">
+        <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+        <span class="unit-price">GHS  30</span></div><button class="cart-btn" data-name="Garlic" data-price="65">Add to Cart</button></div>
+    <div class="product-card"><img src="asset/img/ginger.webp"><h3>Ginger</h3><p>Fresh spicy ginger.</p>
+      <div class="order-options" style="margin:5px 0;">
+        <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+        <span class="unit-price">GHS  25</span></div><button class="cart-btn" data-name="Ginger" data-price="60">Add to Cart</button></div>
+
+    <!-- Hidden Items (9–16) -->
+    <div class="product-card hidden"><img src="asset/img/maggi.jpeg"><h3>Maggi Cubes</h3><p>Seasoning cubes.</p>
+      <div class="order-options" style="margin:5px 0;">
+        <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+        <span class="unit-price">GHS 32</span></div><button class="cart-btn" data-name="Maggi Cubes" data-price="45">Add to Cart</button></div>
+    <div class="product-card hidden"><img src="asset/img/royal-aroma.jpg"><h3>Royal Aroma</h3><p>Long grain rice.</p>
+      <div class="order-options" style="margin:5px 0;">
+        <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+        <span class="unit-price">GHS 110</span></div><button class="cart-btn" data-name="Basmati Rice" data-price="200">Add to Cart</button></div>
+    <div class="product-card hidden"><img src="asset/img/palm-oil.jpg"><h3>Palm Oil</h3><p>Natural palm oil.</p>
+      <div class="order-options" style="margin:5px 0;">
+        <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+        <span class="unit-price">GHS 40</span></div><button class="cart-btn" data-name="Palm Oil" data-price="140">Add to Cart</button></div>
+    <div class="product-card hidden"><img src="asset/img/black-beans.webp"><h3>Black Beans</h3><p>Rich in fiber.</p>
+      <div class="order-options" style="margin:5px 0;">
+        <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+        <span class="unit-price">GHS 25</span></div><button class="cart-btn" data-name="Black Beans" data-price="120">Add to Cart</button></div>
+    <div class="product-card hidden"><img src="asset/img/curry-powdet.jpg"><h3>Curry Powder</h3><p>Strong aroma curry.</p>
+      <div class="order-options" style="margin:5px 0;">
+        <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+        <span class="unit-price">GHS 30</span></div><button class="cart-btn" data-name="Curry Powder" data-price="80">Add to Cart</button></div>
+    <div class="product-card hidden"><img src="asset/img/chicken-bouillon-powder.png"><h3>Bouillon Powder</h3><p>Tasty food enhancer.</p>
+      <div class="order-options" style="margin:5px 0;">
+        <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+        <span class="unit-price">GHS 60</span></div><button class="cart-btn" data-name="Bouillon Powder" data-price="85">Add to Cart</button></div>
+    <div class="product-card hidden"><img src="asset/img/honey.jpg"><h3>Honey</h3><p>Natural sweetener.</p>
+      <div class="order-options" style="margin:5px 0;">
+        <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+        <span class="unit-price">GHS 35</span></div><button class="cart-btn" data-name="Honey" data-price="150">Add to Cart</button></div>
+    <div class="product-card hidden"><img src="asset/img/yeast.jpg"><h3>Yeast</h3><p>Essential for baking.</p>
+      <div class="order-options" style="margin:5px 0;">
+        <input type="number" class="quantity-input" min="1" value="1" style="width:60px; margin-right:5px;">
+        <span class="unit-price">GHS 30</span></div><button class="cart-btn" data-name="Yeast" data-price="70">Add to Cart</button></div>
+  </div>
+  <div style="text-align:center; margin:20px 0;">
+    <button class="load-more" data-target="cooking">Load More</button>
+  </div>
+</section>
+
+ <div id="cart-box" class="cart-box">
+  <h2>Your Cart</h2>
+  <ul id="cart-items"></ul>
+  <p id="cart-total">Total: GHS 0</p>
+  <button id="clear-cart">Clear Cart</button>
+
+  <!-- NEW BUTTON -->
+  <button id="checkout-btn" class="checkout-btn">Proceed to Checkout</button>
+</div>
+
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4> DAILY NEEDS ENTERPRISE</h4>
+        <p>Trusted household and personal care products dealer.</p>
+      </div>
+      <div class="footer-section">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+           <li><a href="about.html">About</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Follow Us</h4>
+        <div class="social-icons">
+           <a href="#"><i class="fab fa-facebook-f"></i></a>
+    <a href="#"><i class="fab fa-instagram"></i></a>
+    <a href="#"><i class="fab fa-x-twitter"></i></a>
+
+        </div>
+      </div>
+    </div>
+    <p class="footer-bottom">© 2025 DAILY NEEDS ENTERPRISE. All Rights Reserved.</p>
+  </footer>
+  <!-- Floating Cart Button -->
+ <div id="floating-cart" class="floating-cart">
+  <i class="fa fa-shopping-cart"></i>
+  <span id="cart-count">0</span>
+</div>
+
+
+
+  
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  /*******************************
+   * LOGIN HANDLING
+   *******************************/
+  const loginBtn = document.querySelector(".login-btn[onclick]");
+  const logoutBtn = document.getElementById("logoutBtn");
+  const loggedIn = localStorage.getItem("loggedIn");
+  const username = localStorage.getItem("username");
+
+  if (loggedIn === "true") {
+    if (loginBtn) loginBtn.style.display = "none";
+    if (logoutBtn) {
+      logoutBtn.style.display = "inline-block";
+      logoutBtn.textContent = username ? `Logout (${username})` : "Logout";
+    }
+  } else {
+    if (loginBtn) loginBtn.style.display = "inline-block";
+    if (logoutBtn) logoutBtn.style.display = "none";
+  }
+
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", () => {
+      localStorage.removeItem("loggedIn");
+      localStorage.removeItem("username");
+      window.location.reload();
+    });
+  }
+
+  if (localStorage.getItem("loggedIn") !== "true" && !window.location.href.includes("login.html")) {
+    window.location.href = "login.html?redirect=shop.html";
+  }
+
+/*******************************
+ * CHECKOUT BUTTON
+ *******************************/
+const checkoutBtn = document.getElementById("checkout-btn");
+
+if (checkoutBtn) {
+  checkoutBtn.addEventListener("click", () => {
+    if (cart.length === 0) {
+      alert("Your cart is empty.");
+      return;
+    }
+    window.location.href = "checkout.html";
+  });
+}
+
+  /*******************************
+   * LIVE SEARCH WITH SUGGESTIONS
+   *******************************/
+  const searchInput = document.getElementById('search-input');
+  const suggestionsBox = document.getElementById('search-suggestions');
+  const allProducts = Array.from(document.querySelectorAll('.product-card'));
+
+  searchInput.addEventListener('input', () => {
+    const query = searchInput.value.toLowerCase().trim();
+    suggestionsBox.innerHTML = '';
+    if (!query) return;
+
+    const matches = allProducts.filter(product => {
+      const name = product.querySelector('h3')?.innerText.toLowerCase() || '';
+      const desc = product.querySelector('p')?.innerText.toLowerCase() || '';
+      return name.includes(query) || desc.includes(query);
+    });
+
+    matches.forEach(product => {
+      const name = product.querySelector('h3').innerText;
+      const imgSrc = product.querySelector('img')?.src || '';
+
+      const suggestion = document.createElement('div');
+      suggestion.style.display = 'flex';
+      suggestion.style.alignItems = 'center';
+      suggestion.style.padding = '5px';
+      suggestion.style.cursor = 'pointer';
+      suggestion.style.borderBottom = '1px solid #eee';
+
+      const img = document.createElement('img');
+      img.src = imgSrc;
+      img.style.width = '40px';
+      img.style.height = '40px';
+      img.style.objectFit = 'cover';
+      img.style.marginRight = '10px';
+      img.style.borderRadius = '5px';
+
+      const text = document.createElement('span');
+      text.textContent = name;
+
+      suggestion.appendChild(img);
+      suggestion.appendChild(text);
+
+      suggestion.addEventListener('click', () => {
+        product.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        searchInput.value = name;
+        suggestionsBox.innerHTML = '';
+      });
+
+      suggestionsBox.appendChild(suggestion);
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!searchInput.contains(e.target) && !suggestionsBox.contains(e.target)) {
+      suggestionsBox.innerHTML = '';
+    }
+  });
+
+  /*******************************
+   * CART SYSTEM
+   *******************************/
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const cartItems = document.getElementById("cart-items");
+  const cartTotal = document.getElementById("cart-total");
+  const floatingCart = document.getElementById("floating-cart");
+  const cartBox = document.getElementById("cart-box");
+  const cartCount = document.getElementById("cart-count");
+
+  function renderCart() {
+    if (!cartItems) return;
+    cartItems.innerHTML = "";
+    let total = 0;
+
+    cart.forEach((item, index) => {
+      const li = document.createElement("li");
+      let subtotal = item.price * item.quantity;
+      if (item.quantity >= 10) subtotal *= 0.9; // 10% discount
+
+      li.textContent = `${item.name} - ${item.quantity} x GHS ${item.price} = GHS ${subtotal.toFixed(2)}`;
+      if (item.quantity >= 10) li.textContent += " (10% discount)";
+
+      const removeBtn = document.createElement("button");
+      removeBtn.textContent = "Remove";
+      removeBtn.onclick = () => {
+        cart.splice(index, 1);
+        saveCart();
+      };
+
+      li.appendChild(removeBtn);
+      cartItems.appendChild(li);
+      total += subtotal;
+    });
+
+    if (cartTotal) cartTotal.textContent = "Total: GHS " + total.toFixed(2);
+    if (cartCount) cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+  }
+
+  function saveCart() {
+    localStorage.setItem("cart", JSON.stringify(cart));
+    renderCart();
+  }
+
+  document.querySelectorAll(".cart-btn").forEach(button => {
+    button.addEventListener("click", () => {
+      const name = button.getAttribute("data-name");
+      const price = parseFloat(button.getAttribute("data-price"));
+      const quantityInput = button.previousElementSibling.querySelector(".quantity-input");
+      const quantity = parseInt(quantityInput.value) || 1;
+
+      const existing = cart.find(i => i.name === name);
+      if (existing) existing.quantity += quantity;
+      else cart.push({ name, price, quantity });
+
+      saveCart();
+      alert(`${quantity} x ${name} added to cart!`);
+    });
+  });
+
+  const clearBtn = document.getElementById("clear-cart");
+  if (clearBtn) clearBtn.addEventListener("click", () => {
+    cart = [];
+    saveCart();
+  });
+
+  if (floatingCart && cartBox) {
+    floatingCart.addEventListener("click", () => {
+      cartBox.classList.toggle("active");
+    });
+  }
+
+  renderCart();
+
+  /*******************************
+   * LOAD MORE / SHOW LESS
+   *******************************/
+  document.querySelectorAll(".load-more").forEach(button => {
+    const targetId = button.getAttribute("data-target");
+    const section = document.querySelector("#" + targetId + " .grid-container");
+    if (!section) return;
+
+    const allItems = Array.from(section.querySelectorAll(".product-card"));
+    const batchSize = 8;
+    let visibleCount = allItems.filter(item => !item.classList.contains("hidden")).length;
+
+    button.addEventListener("click", () => {
+      if (button.textContent === "Load More") {
+        const nextBatch = allItems.slice(visibleCount, visibleCount + batchSize);
+        nextBatch.forEach(item => item.classList.remove("hidden"));
+        visibleCount += nextBatch.length;
+        if (visibleCount >= allItems.length) button.textContent = "Show Less";
+      } else {
+        allItems.forEach((item, index) => {
+          if (index >= batchSize) item.classList.add("hidden");
+        });
+        visibleCount = batchSize;
+        button.textContent = "Load More";
+        section.scrollIntoView({ behavior: "smooth" });
+      }
+    });
+  });
+
+  /*******************************
+   * CAROUSEL
+   *******************************/
+  const slides = document.querySelectorAll(".carousel-slide");
+  const prevBtn = document.querySelector(".carousel-btn.prev");
+  const nextBtn = document.querySelector(".carousel-btn.next");
+  let currentSlide = 0;
+
+  function showSlide(idx) {
+    slides.forEach((slide, i) => slide.classList.toggle("active", i === idx));
+  }
+
+  if (slides.length && nextBtn && prevBtn) {
+    nextBtn.addEventListener("click", () => {
+      currentSlide = (currentSlide + 1) % slides.length;
+      showSlide(currentSlide);
+    });
+    prevBtn.addEventListener("click", () => {
+      currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+      showSlide(currentSlide);
+    });
+    setInterval(() => {
+      currentSlide = (currentSlide + 1) % slides.length;
+      showSlide(currentSlide);
+    }, 5000);
+  }
+
+});
+
+const modal = document.getElementById("product-modal");
+const modalImg = document.getElementById("modal-img");
+const modalCaption = document.getElementById("modal-caption");
+const modalClose = document.querySelector(".modal-close");
+
+document.querySelectorAll(".product-card img").forEach(img => {
+  img.addEventListener("click", () => {
+    modal.style.display = "block";
+    modalImg.src = img.src;
+    modalCaption.textContent = img.closest(".product-card").querySelector("h3").innerText;
+  });
+});
+
+modalClose.addEventListener("click", () => {
+  modal.style.display = "none";
+});
+
+modal.addEventListener("click", (e) => {
+  if (e.target === modal) modal.style.display = "none";
+});
+
+
+
+</script>
+
+
+
+</body>
+</html>

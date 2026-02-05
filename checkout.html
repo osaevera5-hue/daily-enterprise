@@ -1,0 +1,181 @@
+ <!DOCTYPE html>
+<html>
+<head>
+  <title>Checkout - Daily Needs Enterprise</title>
+  <style>
+    /* GENERAL STYLES */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa, #c3cfe2); /* soft gradient background */
+    }
+
+    /* NAVBAR */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #ffff; 
+      padding: 10px 20px;
+      color: black;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar .logo img {
+      height: 50px; /* logo size */
+    }
+
+    .navbar .menu {
+      display: flex;
+      gap: 20px;
+    }
+
+    .navbar .menu a {
+      text-decoration: none;
+      color: black; 
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    .navbar .menu a:hover {
+      color: #00d084;
+    }
+
+    .navbar .right-items {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .navbar .right-items button {
+      background-color: #00d084;
+      color: #fff;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .navbar .right-items button:hover {
+      background-color: #00a05a;
+    }
+
+    /* CHECKOUT FORM */
+    .checkout-box {
+      max-width: 500px;
+      margin: 50px auto;
+      background: #fff;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    .checkout-box h2, .checkout-box h3 {
+      margin-top: 0;
+      color: #333;
+    }
+
+    .checkout-box input, .checkout-box select {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    .checkout-box button {
+      padding: 12px;
+      background-color: #00d084;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      width: 100%;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 15px;
+      transition: background 0.3s;
+    }
+
+    .checkout-box button:hover {
+      background-color: #00a05a;
+    }
+
+    #checkout-total {
+      font-weight: bold;
+      margin-bottom: 20px;
+      font-size: 18px;
+      color: #111;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="logo">
+      <img src="asset/img/dne.jpeg" alt="Company Logo"> <!-- replace with your logo -->
+    </div>
+    <div class="menu">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="shop.html">Shop</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="right-items">
+      <!-- <button><a href="login.html">Login</a></button> -->
+      <!-- <button>Cart</button> -->
+    </div>
+  </nav>
+
+  <!-- CHECKOUT FORM -->
+  <div class="checkout-box">
+    <h2>Checkout</h2>
+    <p id="checkout-total"></p>
+
+    <h3>Customer Details</h3>
+    <input type="text" placeholder="Full Name" required>
+    <input type="text" placeholder="Phone Number" required>
+    <input type="text" placeholder="Location / Address" required>
+
+    <h3>Payment Method</h3>
+    <select required>
+      <option value="">Select payment method</option>
+      <option>Mobile Money (MTN)</option>
+      <option>Mobile Money (AirtelTigo)</option>
+      <option>Mobile Money (Vodafone)</option>
+      <option>Cash on Delivery</option>
+    </select>
+
+    <button onclick="submitOrder()">Submit Order</button>
+  </div>
+
+  <script>
+    // DISPLAY TOTAL
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let total = cart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
+    document.getElementById("checkout-total").textContent = "Total Amount: GHS " + total.toFixed(2);
+
+    // SUBMIT ORDER FUNCTION
+    function submitOrder() {
+      const name = document.querySelector('input[placeholder="Full Name"]').value;
+      const phone = document.querySelector('input[placeholder="Phone Number"]').value;
+      const address = document.querySelector('input[placeholder="Location / Address"]').value;
+      const payment = document.querySelector('select').value;
+
+      if (!name || !phone || !address || !payment) {
+        alert("Please fill in all required fields.");
+        return;
+      }
+
+      alert(`Thank you, ${name}! Your order of GHS ${total.toFixed(2)} has been submitted.`);
+      localStorage.removeItem("cart"); // clear cart after submission
+      window.location.href = "shop.html"; // redirect to homepage
+    }
+  </script>
+
+</body>
+</html>

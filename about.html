@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DAILY NEEDS ENTERPRISE | About Us</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    /* Modal Background */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  padding-top: 60px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background: rgba(0,0,0,0.8);
+}
+
+/* Modal Image */
+.modal-content {
+  margin: auto;
+  display: block;
+  width: 70%;
+  max-width: 800px;
+  border-radius: 10px;
+}
+
+/* Caption */
+#caption {
+  margin: 15px auto;
+  text-align: center;
+  color: #fff;
+  font-size: 20px;
+}
+
+/* Close Button */
+.close {
+  position: absolute;
+  top: 20px;
+  right: 40px;
+  color: white;
+  font-size: 45px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.modal-box {
+  text-align: center;
+  color: #fff;
+}
+
+#modalName {
+  margin-top: 20px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+#modalPosition {
+  margin-top: 5px;
+  font-size: 20px;
+  opacity: 0.9;
+}
+
+
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <header>
+    <nav class="navbar">
+      <!-- <div class="logo">DAAS PALMFIELD ENT</div> -->
+       <div class="logo"><img src="asset/img/dne.jpeg" alt=""></div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+         <button class="login-btn" onclick="window.location.href='login.html?redirect=' + window.location.pathname">Login</button>
+         <button class="login-btn" id="logoutBtn" style="display:none;">Logout</button>
+
+      <div class="social-icons">
+             <a href="#"><i class="fab fa-facebook-f"></i></a>
+    <a href="#"><i class="fab fa-instagram"></i></a>
+    <a href="#"><i class="fab fa-x-twitter"></i></a>
+
+        </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="about-hero">
+    <div class="overlay"></div>
+    <div class="hero-text">
+      <h1>About Us</h1>
+      <p>Get to know DAILY NEEDS ENTERPRISE – your trusted partner for daily essentials.</p>
+    </div>
+  </section>
+
+  <!-- Our Story Section -->
+  <section class="about-section">
+    <h2>Our Story</h2>
+    <p>
+      DAILY NEEDS ENTERPRISE is a household and personal care products dealer committed to 
+      providing essential daily-use items to individuals, families, and small businesses.  
+      From humble beginnings, we have grown into a trusted name, supplying high-demand 
+      products such as body wash, bar soap, rice, cooking oil, sanitary pads, towels, 
+      body creams, and more.
+    </p>
+  </section>
+
+  <!-- Mission and Vision -->
+  <section class="about-section mission-vision">
+    <div class="mission">
+          <i class="fas fa-bullseye icon"></i>
+
+      <h2>Our Mission</h2>
+      <p>
+        To deliver quality, affordable, and accessible products that improve 
+        hygiene, wellness, and daily living for every household we serve.
+      </p>
+    </div>
+    <div class="vision">
+         <i class="fas fa-eye icon"></i>
+      <h2>Our Vision</h2>
+      <p>
+        To become the most reliable and customer-focused distributor of household 
+        and personal care products in the region, empowering both individuals and businesses.
+      </p>
+    </div>
+  </section>
+
+  <!-- Core Values -->
+  <section class="about-section values">
+    <h2>Our Core Values</h2>
+    <ul>
+      <li><strong>Quality:</strong> Supplying only trusted and safe products.</li>
+      <li><strong>Affordability:</strong> Competitive prices without compromising standards.</li>
+      <li><strong>Reliability:</strong> Consistent supply and dependable service.</li>
+      <li><strong>Customer Satisfaction:</strong> Building long-lasting trust with our clients.</li>
+    </ul>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="about-cta">
+    <h2>Partner With Us</h2>
+    <p>
+      Whether you are shopping for your family or sourcing for your business, 
+      DAILY NEEDS ENTERPRISE is here to serve you. Join our community of satisfied customers today.
+    </p>
+    <a href="shop.html" class="advert-btn">Shop Now</a>
+
+  </section>
+
+  <!-- Our Team Section -->
+  <section class="about-section team">
+    <h2>Meet Our Products Team</h2>
+    <p>Our dedicated team ensures the best products reach your household and business.</p>
+    <div class="team-container">
+      <!-- Member 1 -->
+      <div class="team-member">
+        <img src="asset/img/vera2.jpeg" alt="Team Member">
+        <h3>VERA</h3>
+        <p>Head of Product Sourcing</p>
+      </div>
+      <!-- Member 2 -->
+      <div class="team-member">
+        <img src="asset/img/men-Ali.jpg" alt="Team Member">
+        <h3>ALI</h3>
+        <p>Quality Control Manager</p>
+      </div>
+      <!-- Member 3 -->
+      <div class="team-member">
+        <img src="asset/img/k.webp" alt="Team Member">
+        <h3>SAMPSON</h3>
+        <p>Distribution Supervisor</p>
+      </div>
+      <!-- Member 4 -->
+      <div class="team-member">
+        <img src="asset/img/sam.jpg" alt="Team Member">
+        <h3>SAMUEL</h3>
+        <p>Procurement Specialist</p>
+      </div>
+      <!-- Member 5 -->
+      <div class="team-member">
+        <img src="asset/img/sar.webp" alt="Team Member">
+        <h3>SARPONG </h3>
+        <p>Customer Relations Officer</p>
+      </div>
+    </div>
+  </section>
+
+
+  
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>DAILY NEEDS ENTERPRISE</h4>
+        <p>Trusted household and personal care products dealer.</p>
+      </div>
+      <div class="footer-section">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Follow Us</h4>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+    <a href="#"><i class="fab fa-instagram"></i></a>
+    <a href="#"><i class="fab fa-x-twitter"></i></a>
+
+        </div>
+      </div>
+    </div>
+    <p class="footer-bottom">© 2025 DAILY NEEDS ENTERPRISE. All Rights Reserved.</p>
+  </footer>
+
+
+  <!-- Image Modal -->
+<div id="imgModal" class="modal">
+  <span class="close">&times;</span>
+  <div class="modal-box">
+    <img class="modal-content" id="modalImg">
+    <h2 id="modalName"></h2>
+    <p id="modalPosition"></p>
+  </div>
+</div>
+
+
+ <script>
+  const loginBtn = document.querySelector(".login-btn[onclick]");
+  const logoutBtn = document.getElementById("logoutBtn");
+
+  // check login state
+  const loggedIn = localStorage.getItem("loggedIn");
+  const username = localStorage.getItem("username");
+
+  if (loggedIn === "true") {
+    if (loginBtn) loginBtn.style.display = "none";
+    if (logoutBtn) {
+      logoutBtn.style.display = "inline-block";
+      logoutBtn.textContent = username ? `Logout (${username})` : "Logout";
+    }
+  } else {
+    if (loginBtn) loginBtn.style.display = "inline-block";
+    if (logoutBtn) logoutBtn.style.display = "none";
+  }
+
+  // handle logout
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", () => {
+      localStorage.removeItem("loggedIn");
+      localStorage.removeItem("username");
+      window.location.reload();
+    });
+  }
+
+  
+   
+  // Select all team member containers
+  const teamMembers = document.querySelectorAll(".team-member");
+
+  const modal = document.getElementById("imgModal");
+  const modalImg = document.getElementById("modalImg");
+  const modalName = document.getElementById("modalName");
+  const modalPosition = document.getElementById("modalPosition");
+  const closeBtn = document.querySelector(".close");
+
+  // For each team member
+  teamMembers.forEach(member => {
+    const img = member.querySelector("img");
+    const name = member.querySelector("h3").textContent;
+    const position = member.querySelector("p").textContent;
+
+    img.addEventListener("click", () => {
+      modal.style.display = "block";
+      modalImg.src = img.src;
+      modalName.textContent = name;
+      modalPosition.textContent = position;
+    });
+  });
+
+  // Close modal
+  closeBtn.onclick = function () {
+    modal.style.display = "none";
+  };
+
+  // Close when clicking outside content
+  window.onclick = function (event) {
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  };
+ 
+
+
+</script>
+
+</body>
+</html>

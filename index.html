@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DAILY NEEDS ENTERPRISE | Home</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="try.css">
+  <script defer src="script.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+ 
+<style>
+  /* TESTIMONIALS SECTION */
+.testimonials {
+  background: #e6f4ff;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.testimonials h2 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  color: #003366;
+}
+
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.testimonial-card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-5px);
+}
+
+.testimonial-card p {
+  font-style: italic;
+  margin-bottom: 10px;
+  color: #444;
+}
+
+.testimonial-card h4 {
+  font-weight: bold;
+  color: #003366;
+}
+
+/* FAQ SECTION */
+.faq {
+  padding: 60px 20px;
+  background: #f9f9f9;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.faq h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2rem;
+  color: #222;
+}
+
+.faq-item {
+  margin-bottom: 20px;
+  padding: 15px;
+  border-left: 4px solid #0073e6;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.faq-item h3 {
+  margin-bottom: 8px;
+  font-size: 1.2rem;
+  color: #0073e6;
+}
+
+.faq-item p {
+  margin: 0;
+  color: #444;
+  line-height: 1.6;
+}
+
+/* CTA SECTION */
+.cta {
+  background: linear-gradient(135deg, #0073e6, #00b3b3);
+  color: #fff;
+  padding: 70px 20px;
+  text-align: center;
+}
+
+.cta-content h2 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+.cta-content p {
+  margin-bottom: 25px;
+  font-size: 1.2rem;
+}
+
+.cta-btn {
+  display: inline-block;
+  background: #fff;
+  color: #0073e6;
+  padding: 12px 28px;
+  font-size: 1rem;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s ease;
+}
+
+.cta-btn:hover {
+  background: #003366;
+  color: #fff;
+}
+.more-text {
+  transition: all 0.3s ease;
+}
+
+.read-toggle:hover {
+  text-decoration: underline;
+}
+.carousel-slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: cover; /* fills container */
+  background-repeat: no-repeat;
+  background-position:  bottom center; /* change this */
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+</style>
+</head>
+<body>
+  <!-- Navbar -->
+  <header>
+    <nav class="navbar">
+      <div class="logo"><img src="asset/img/dne.jpeg" alt=""></div>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+         <button class="login-btn" onclick="window.location.href='login.html?redirect=' + window.location.pathname">Login</button>
+           <button class="login-btn" id="logoutBtn" style="display:none;">Logout</button>
+
+
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-x-twitter"></i></a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Carousel -->
+  <section class="carousel">
+    <div class="carousel-slide active" style="background-image: url(asset/img/c2.webp);">
+      <div class="overlay"></div>
+      <div class="carousel-text">
+        <h1>Your Trusted Source for Daily Essentials</h1>
+        <p>Quality and affordable products for families and businesses.</p>
+      </div>
+    </div>
+    <div class="carousel-slide" style="background-image: url(asset/img/perfume-4.webp);">
+      <div class="overlay"></div>
+      <div class="carousel-text">
+        <h1>Affordable Bulk Supply</h1>
+        <p>Reliable sourcing for retailers and organizations.</p>
+      </div>
+    </div>
+    <div class="carousel-slide" style="background-image: url(asset/img/skin.jpeg);">
+      <div class="overlay"></div>
+      <div class="carousel-text">
+        <h1>Improving Wellness</h1>
+        <p>Trusted products for every household we serve.</p>
+      </div>
+    </div>  
+    <!-- Arrows -->
+    <button class="carousel-btn prev">&#10094;</button>
+    <button class="carousel-btn next">&#10095;</button>
+  </section>
+
+  <!-- Featured Products -->
+  <section class="products">
+    <h2>Featured Products</h2>
+    <div class="grid-container" id="product-grid">
+      <!-- Example Product Cards -->
+      <div class="product-card"><img src="asset/img/aveeno.jpg"><h3>Body Wash</h3><p>Gentle and refreshing for all skin types.(Aveeno)</p><div class="price">GHC,45</div></div>
+      <div class="product-card"><img src="asset/img/bar-soap-2.jpg"><h3>Bar Soap</h3><p>Classic and affordable cleansing. (Renate Bar Soap)</p><div class="price">GHC,15</div></div>
+      <div class="product-card"><img src="asset/img/royal-aroma.jpg"><h3>Rice</h3><p>Premium grains for everyday meals.(Royal Aroma)</p><div class="price">GHC,110</div></div>
+      <div class="product-card"><img src="asset/img/cooking-oil.jpg"><h3>Cooking Oil</h3><p>Healthy choice for family cooking.(Cooking Saji Oil)</p><div class="price">GHC,75</div></div>
+      <div class="product-card"><img src="asset/img/sanitary-pad.webp"><h3>Sanitary Pads</h3><p>Comfort and protection when needed most.(Yazz Pad)</p><div class="price">GHC,20</div></div>
+      <div class="product-card"><img src="asset/img/towels1.jpg"><h3>Towels</h3><p>Soft and absorbent daily essentials.(Premium Towels)</p><div class="price">GHC,120</div></div>
+      <div class="product-card"><img src="asset/img/body-cream-3.webp"><h3>Body Cream</h3><p>Moisturizing creams for skin care.(Plama Body Cream)</p><div class="price">GHC,75</div></div>
+      <div class="product-card"><img src="asset/img/kel.webp"><h3>Toothpaste</h3><p>Oral care for fresh breath and clean teeth.(Kel Toothpaste)</P><div class="price">GHC,25</div></div>
+      <div class="product-card"><img src="asset/img/detergent.jpg"><h3>Detergent</h3><p>Powerful stain removal for clothes.(Prima Detergent)</p><div class="price">GHC,80</div></div>
+      <div class="product-card"><img src="asset/img/voltic.jpg"><h3>Bottled Water</h3><p>Clean hydration for every day.(Vooltic Water)</p><div class="price">GHC,35</div></div>
+      <div class="product-card"><img src="asset/img/Rosemary.jpg"><h3>Spices</h3><p>Enhance your meals with natural taste.(Rosemary)</p><div class="price">GHC,25</div></div>
+      <div class="product-card"><img src="asset/img/beans.webp"><h3>Beans</h3><p>Nutritious protein-rich meals. (Henz Baked Beans)</p><div class="price">GHC,22</div></div>
+    </div>
+    <button id="loadMoreBtn">Load More</button>
+  </section>
+
+  <!-- Advertisement / Promo Section -->
+  <section class="advert-section">
+    <div class="advert-content">
+      <div class="advert-text">
+        <h2>Trusted by Families & Businesses</h2>
+        <p>
+          Discover why so many people choose <strong> DAILY NEEDS ENTERPRISE</strong> for their daily essentials. 
+          Affordable, high-quality, and reliable — we've got you covered.
+        </p>
+        <button class="advert-btn"><a href="shop.html" class="advert-btn">Shop Now</a></button>
+      </div>
+      <div class="advert-image">
+        <img src="asset/img/skin.jpeg" alt="Customer promoting products">
+      </div>
+    </div>
+  </section><!-- Section 1 -->
+<div class="section">
+  <img src="asset/img/aveeno.jpg" alt="">
+  <div class="text">
+    <h2>Body Wash & Bar Soap</h2>
+    <p>
+      Gentle, refreshing, and suitable for all skin types. Our body washes and soaps are designed to keep your skin clean and nourished.
+      <span class="more-text" style="display:none;">
+        We carefully select formulas enriched with natural ingredients to help your skin feel smooth and healthy every day. 
+        Whether you prefer moisturizing, exfoliating, or antibacterial options, we offer trusted brands that provide superior freshness and care. 
+        Our bar soaps are long-lasting, while our body washes create a rich lather for a spa-like experience at home.
+      </span>
+      <span class="read-toggle" style="color:#0073e6; cursor:pointer; font-weight:bold;">Read More</span>
+    </p>
+  </div>
+</div>
+
+<!-- Section 2 -->
+<div class="section reverse">
+  <img src="asset/img/rice-oil-4340191.webp" alt="">
+  <div class="text">
+    <h2>Rice & Cooking Oil</h2>
+    <p>
+      Premium quality rice and cooking oil, perfect for homes and businesses. Available in various quantities for your convenience.
+      <span class="more-text" style="display:none;">
+        Our rice is sourced from trusted farms, ensuring every grain is fresh, nutritious, and perfect for all your favorite dishes.
+        We also supply pure, cholesterol-free cooking oils that promote heart health while bringing out the best flavors in your meals.
+        Whether you’re preparing family dinners or catering for large events, we’ve got your kitchen essentials covered.
+      </span>
+      <span class="read-toggle" style="color:#0073e6; cursor:pointer; font-weight:bold;">Read More</span>
+    </p>
+  </div>
+</div>
+
+<!-- Section 3 -->
+<div class="section">
+  <img src="asset/img/towels1.jpg" alt="">
+  <div class="text">
+    <h2>Sanitary Pads & Towels</h2>
+    <p>
+      Comfortable and hygienic sanitary pads and towels that prioritize your health and wellness. Trusted by women everywhere.
+      <span class="more-text" style="display:none;">
+        Our sanitary pads provide superior absorbency and all-day comfort, giving you confidence even during your busiest days. 
+        The towels in our collection are soft, durable, and quick-drying — perfect for everyday use at home, in hotels, or in salons. 
+        We offer quality brands known for reliability, ensuring you get the best combination of comfort and hygiene.
+      </span>
+      <span class="read-toggle" style="color:#0073e6; cursor:pointer; font-weight:bold;">Read More</span>
+    </p>
+  </div>
+</div>
+
+
+   
+  <!-- FAQ -->
+  <section class="faq">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-item">
+      <h3>Do you deliver across the country?</h3>
+      <p>Yes, we deliver nationwide with affordable shipping options.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Can I order in bulk for my business?</h3>
+      <p>Absolutely! We specialize in bulk supplies for shops, schools, and organizations.</p>
+    </div>
+    <div class="faq-item">
+      <h3>What payment methods do you accept?</h3>
+      <p>We accept cash, mobile money, and bank transfers for your convenience.</p>
+    </div>
+  </section>
+
+  <!-- CALL TO ACTION -->
+  <section class="cta">
+    <div class="cta-content">
+      <h2>Ready to Stock Up?</h2>
+      <p>Join thousands of happy customers who trust <strong> DAILY NEEDS ENTERPRISE</strong> for their daily essentials.</p>
+      <a href="shop.html" class="cta-btn">Shop Now</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4> DAILY NEEDS ENTERPRISE</h4>
+        <p>Trusted household and personal care products dealer.</p>
+      </div>
+      <div class="footer-section">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <!-- <li><a href="products.html">Products</</li> -->
+          <li><a href="about.html">About</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Follow Us</h4>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-x-twitter"></i></a>
+        </div>
+      </div>
+    </div>
+    <p class="footer-bottom">© 2025  DAILY NEEDS ENTERPRISE. All Rights Reserved.</p>
+  </footer>
+  
+  <script>
+  const loginBtn = document.querySelector(".login-btn[onclick]");
+  const logoutBtn = document.getElementById("logoutBtn");
+
+  // check login state
+  const loggedIn = localStorage.getItem("loggedIn");
+  const username = localStorage.getItem("username");
+
+  if (loggedIn === "true") {
+    if (loginBtn) loginBtn.style.display = "none";
+    if (logoutBtn) {
+      logoutBtn.style.display = "inline-block";
+      logoutBtn.textContent = username ? `Logout (${username})` : "Logout";
+    }
+  } else {
+    if (loginBtn) loginBtn.style.display = "inline-block";
+    if (logoutBtn) logoutBtn.style.display = "none";
+  }
+
+  // handle logout
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", () => {
+      localStorage.removeItem("loggedIn");
+      localStorage.removeItem("username");
+      window.location.reload();
+    });
+  }
+
+
+  document.addEventListener("DOMContentLoaded", () => {
+  let slides = document.querySelectorAll(".carousel-slide");
+  let currentIndex = 0;
+
+  function showSlide(index) {
+    slides.forEach((slide, i) => {
+      slide.classList.toggle("active", i === index);
+    });
+  }
+
+  function nextSlide() {
+    currentIndex = (currentIndex + 1) % slides.length;
+    showSlide(currentIndex);
+  }
+
+  function prevSlide() {
+    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+    showSlide(currentIndex);
+  }
+
+  // Auto-slide every 4s
+  let autoSlide = setInterval(nextSlide, 4000);
+
+  // Buttons
+  const nextBtn = document.querySelector(".carousel-btn.next");
+  const prevBtn = document.querySelector(".carousel-btn.prev");
+
+  if (nextBtn && prevBtn) {
+    nextBtn.addEventListener("click", () => {
+      nextSlide();
+      resetAutoSlide();
+    });
+    prevBtn.addEventListener("click", () => {
+      prevSlide();
+      resetAutoSlide();
+    });
+  }
+
+  function resetAutoSlide() {
+    clearInterval(autoSlide);
+    autoSlide = setInterval(nextSlide, 4000);
+  }
+});
+
+/* =====================
+     LOAD MORE PRODUCTS
+  ===================== */
+  const loadMoreBtn = document.getElementById("loadMoreBtn");
+  const productCards = document.querySelectorAll(".product-card");
+  const initialItems = 6;
+  let showingAll = false;
+
+  function updateProducts() {
+    productCards.forEach((card, index) => {
+      card.style.display = (!showingAll && index >= initialItems) ? "none" : "block";
+    });
+  }
+
+  if (loadMoreBtn) {
+    updateProducts();
+    loadMoreBtn.addEventListener("click", () => {
+      showingAll = !showingAll;
+      updateProducts();
+      loadMoreBtn.textContent = showingAll ? "Show Less" : "Load More";
+    });
+  }
+
+  
+// READ MORE / LESS FUNCTIONALITY
+document.querySelectorAll('.read-toggle').forEach(toggle => {
+  toggle.addEventListener('click', () => {
+    const paragraph = toggle.parentElement;
+    const moreText = paragraph.querySelector('.more-text');
+
+    if (moreText.style.display === 'none' || moreText.style.display === '') {
+      moreText.style.display = 'inline';
+      toggle.textContent = ' Read Less';
+    } else {
+      moreText.style.display = 'none';
+      toggle.textContent = ' Read More';
+    }
+  });
+});
+
+
+
+</script>
+</body>
+ 
+
+</html>
